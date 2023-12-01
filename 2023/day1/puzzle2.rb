@@ -14,8 +14,7 @@ word_map = {
 }
 
 File.readlines('input.txt').each do |line|
-  first, last = nil
-  first_value, last_value = nil
+  first, last, first_value, last_value = nil
   word_map.flatten.each do |match|
     # first occurance
     lposition = line.index(match.to_s)
