@@ -14,7 +14,26 @@ word_map = {
 }
 
 File.readlines('input.txt').each do |line|
-  d1, d2 = line.match(/\D*(\d)?.*(\d)\D*/i).captures
-  sum += ((d1 || d2).to_s + d2.to_s).to_i
+  first, last = nil
+  first_value, last_value = nil
+  (word_map.keys() + (1..9).to_a).each do |match|
+    # first occurance
+    lposition = line.index(match.to_s)
+    if first.nil? || (lposition && lposition < first)
+      first = lposition
+      first_value = match
+    end
+    # last occurnce
+    rposition = line.rindex(match.to_s)
+    if last.nil? || (rposition && rposition > last)
+      last = rposition
+      last_value = match
+    end
+  end
+  # noromalize to stringified digit
+  first_digit = (word_map[first_value] || first_value).to_s
+  last_digit = (word_map[last_value] || last_value).to_s
+  sum += (first_digit + last_digit).to_i
 end
+
 puts "digits+words: #{sum}"
