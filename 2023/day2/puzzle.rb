@@ -5,14 +5,28 @@ GREEN = 13
 BLUE = 14
 
 def simulate_games
-  possible_ids = []
   games = read_games('input.txt')
+
+  # part 1
+  possible_ids = []
   games.each do |game|
     if game[:drawings].map {|d| possible_draw(d) }.all?
       possible_ids.append(game[:id])
     end
   end
-  puts possible_ids.sum
+  puts "Part 1 sum: #{possible_ids.sum}"
+
+  #part 2
+  powers_sum = games.map do |game|
+    minimum_draw(game[:drawings])
+  end.sum
+
+  puts "Part 2 sum: #{powers_sum}"
+end
+
+def minimum_draw(drawings)
+  colors = [:r, :g, :b]
+  return colors.map { |color| drawings.map { |d| d[color] }.max }.reduce(:*)
 end
 
 def possible_draw(d)
