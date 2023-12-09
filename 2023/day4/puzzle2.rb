@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
 
-CARDS = []
 INPUT = "input.txt"
 
 class Card
@@ -58,7 +57,7 @@ def load_cards!
     id, winning, numbers = card.match(/Card\D+(\d+):([0-9 ]+)\|([0-9 ]+)/i).captures
     winning = winning.split(" ").map(&:strip).map(&:to_i)
     numbers = numbers.split(" ").map(&:strip).map(&:to_i)
-    CARDS << Card.new(id.strip.to_i, winning, numbers)
+    Card.new(id.strip.to_i, winning, numbers)
   end
 end
 
